@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <style>
+        main {
+            text-align: center;
+            color: #303030;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Bem-vindo</h1>
+        <h2>Tempo de casados</h2>
+        <form action="{% url 'criar.meu.site' %}" method="POST">
+            <input type="text" name="nome_site" value="Voce e Eu">
+            <button>Gere meu site</button>
+        </form>
+    </main>
+</body>
+
+</html>
