@@ -1,6 +1,8 @@
 # coding: utf-8
 import logging
 import os
+import base64
+
 
 from django.db import connection
 from django.http import JsonResponse
@@ -40,12 +42,20 @@ def status(request):
     )
 
 
+def home(request):
+    context = {}
+    return render(request, "core/home.html", context)
+
+
 @csrf_exempt
 def criar_meu_site(request):
     """Adiciona Relacionamento"""
     logger.info("API add new relacionamento.")
-    # body = json.loads(request.body)
+
     body = request.POST
+    files = request.FILES
+    print(files)
+
     nome_site = body.get("nome_site")
 
     if not nome_site:
@@ -62,20 +72,35 @@ def criar_meu_site(request):
             "body.relacionamento.nome_site: Value error, It must be at least 3 characteres long. (value_error)"
         )
 
-    novo_site = relacionamentos_svc.criar_meusite(nome_site)
-    print(novo_site)
+    # body = json.loads(request.body)
+
+    # with open(files["file"].file, "rb") as file_text:
+    imagem_text = files["file"].file
+    imagem_read = imagem_text.read()
+    imagem_encode = base64.encodebytes(imagem_read).decode(
+        "utf-8"
+    )  # Converte para base64
+
+    # print(imagem_encode)
+
+    site_json = relacionamentos_svc.criar_meusite(nome_site, imagem_encode)
+    print(site_json)
     # context = {"novo_site": novo_site}
-    print("chegueo")
+    print("cheguei")
     # return JsonResponse(new_relacionamento, status=201)
     # return render(request, "site_do_casal", context)
-    url = reverse("vai_pro_site", kwargs={"nome_site": str(novo_site)})
+    url = reverse("vai_pro_site", kwargs={"nome_site": site_json.get("nome_site")})
 
     return redirect(url)
 
 
 @csrf_exempt
 def vai_pro_site(request, nome_site):
-    context = {"nome_site": nome_site}
+    site_do_casal = relacionamentos_svc.get_site(nome_site)
+    context = {
+        "nome_site": nome_site,
+        "site": site_do_casal,
+    }
     print("cheguei aqui")
     return render(request, "core/site_do_casal.html", context)
 

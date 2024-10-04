@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <title>Project</title>
     <style>
         main {
@@ -17,9 +19,23 @@
     <main>
         <h1>Bem-vindo</h1>
         <h2>Tempo de casados</h2>
-        <form action="{% url 'criar.meu.site' %}" method="POST">
-            <input type="text" name="nome_site" value="Voce e Eu">
-            <button>Gere meu site</button>
+        <form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
+
+            {% csrf_token %}
+
+            <div class="previews"></div>
+
+            <div class="  block overflow-visible">
+
+                <div>
+                    <p style="font-size: 1.1em;">OI</p>
+                    <div class="" style="margin-bottom: 12px;">
+                        <input type="text" name="nome_site" value="Voce e Eu">
+                        <label></label>
+                    </div>
+                </div>
+
+                <button>Gere meu site</button>
         </form>
     </main>
 </body>
