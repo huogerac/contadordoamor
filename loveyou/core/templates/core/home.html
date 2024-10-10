@@ -1,32 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <title>Project</title>
-    <style>
-        main {
-            text-align: center;
-            color: #303030;
-        }
-    </style>
-</head>
-
+{% block 'content' %}
 <body>
     <main>
         <h1>Bem-vindo</h1>
         <h2>Tempo de casados</h2>
         <form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
-
             {% csrf_token %}
-
             <div class="previews"></div>
-
             <div class="  block overflow-visible">
-
                 <div>
                     <p style="font-size: 1.1em;">OI</p>
                     <div class="" style="margin-bottom: 12px;">
@@ -34,10 +16,9 @@
                         <label></label>
                     </div>
                 </div>
-
                 <button>Gere meu site</button>
+            </div>
         </form>
     </main>
 </body>
-
-</html>
+{% endblock 'content' %}
