@@ -57,6 +57,7 @@ def criar_meu_site(request):
     print(files)
 
     nome_site = body.get("nome_site")
+    inicio_relacionamento = request.POST.get("inicio_relacionamento")
 
     if not nome_site:
         raise ValueError("body.relacionamento.nome_site: Field required (missing)")
@@ -83,7 +84,9 @@ def criar_meu_site(request):
 
     # print(imagem_encode)
 
-    site_json = relacionamentos_svc.criar_meusite(nome_site, imagem_encode)
+    site_json = relacionamentos_svc.criar_meusite(
+        nome_site, imagem_encode, inicio_relacionamento
+    )
     print(site_json)
     # context = {"novo_site": novo_site}
     print("cheguei")

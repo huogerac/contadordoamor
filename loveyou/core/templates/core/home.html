@@ -1,24 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'themes/bootstrap5/base.html' %}
 
-{% block 'content' %}
-<body>
-    <main>
-        <h1>Bem-vindo</h1>
-        <h2>Tempo de casados</h2>
-        <form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
-            {% csrf_token %}
-            <div class="previews"></div>
-            <div class="  block overflow-visible">
-                <div>
-                    <p style="font-size: 1.1em;">OI</p>
-                    <div class="" style="margin-bottom: 12px;">
-                        <input type="text" name="nome_site" value="Voce e Eu">
-                        <label></label>
-                    </div>
-                </div>
-                <button>Gere meu site</button>
+{% block content %}
+
+<h1>Bem-vindo</h1>
+<h2>Tempo de casados</h2>
+<form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
+    {% csrf_token %}
+    <div class="previews"></div>
+    <div class="  block overflow-visible">
+        <div>
+            <p style="font-size: 1.1em;">OI</p>
+            <div class="" style="margin-bottom: 12px;">
+                <input type="text" name="nome_site" value="Voce e Eu">
+                <label></label>
+                <input type="date" name="inicio_relacionamento" id="inicio_relacionamento">
             </div>
-        </form>
-    </main>
-</body>
-{% endblock 'content' %}
+        </div>
+        <button>Gere meu site</button>
+    </div>
+</form>
+{% endblock content %}

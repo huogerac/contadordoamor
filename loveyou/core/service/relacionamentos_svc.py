@@ -1,5 +1,5 @@
 import logging
-
+from datetime import datetime
 from django.utils.text import slugify
 
 from ..models import Relacionamento
@@ -8,7 +8,7 @@ from ..exceptions import BusinessError
 logger = logging.getLogger(__name__)
 
 
-def criar_meusite(nome_site: str, imagem: str) -> dict:
+def criar_meusite(nome_site: str, imagem: str, data_inicio_relacionamento: str) -> dict:
     logger.info("SERVICE add new relacionamento")
 
     if not isinstance(nome_site, str):
@@ -18,10 +18,16 @@ def criar_meusite(nome_site: str, imagem: str) -> dict:
     if not nome_site:
         raise BusinessError("Nome do site inválido")
 
+    if data_inicio_relacionamento:
+        data_inicio_relacionamento = datetime.strptime(
+            data_inicio_relacionamento, "%Y-%m-%d"
+        )
+
     relacionamento = Relacionamento(
         nome_site=nome_site,
         imagem=imagem,
         frase_do_casal="oi",
+        data_inicio_relacionamento=data_inicio_relacionamento,
         ativo=True,
     )
 
