@@ -4,6 +4,7 @@
 
 <h1>Bem-vindo</h1>
 <h2>Tempo de casados</h2>
+<p id="message"></p>
 <form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
     {% csrf_token %}
     <div class="previews"></div>
@@ -16,7 +17,55 @@
                 <input type="date" name="inicio_relacionamento" id="inicio_relacionamento">
             </div>
         </div>
-        <button>Gere meu site</button>
+        <button type="submit">Gere meu site</button>
     </div>
 </form>
 {% endblock content %}
+
+
+{% block js %}
+
+<script>
+
+    Dropzone.options.uploadForm = {
+        autoProcessQueue: false,
+        uploadMultiple: false,
+        parallelUploads: 100,
+        maxFiles: 1,
+        acceptedFiles: '.png,.jpg',
+        addRemoveLinks: true,
+
+        init: function () {
+            var myDropzone = this;
+            this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                myDropzone.processQueue();
+            });
+
+            this.on("sendingmultiple", function () {
+                console.log('a1')
+            });
+            this.on("successmultiple", function (files, response) {
+                console.log('a2', response)
+            });
+            this.on("errormultiple", function (files, response) {
+                console.log('a2', response)
+            });
+            this.on("success", function (file, responseJson) {
+                // Handle the responseText here. For example, add the text to the preview element:
+                console.log('---> success:', responseJson)
+                window.location.href = responseJson.url;
+
+            });
+            this.on("error", function (file, responseJson) {
+                // Handle the responseText here. For example, add the text to the preview element:
+                console.log('---> error:', responseJson.message)
+                document.getElementById("message").innerHTML = responseJson.message
+            });
+        }
+    }
+
+</script>
+
+{% endblock js %}

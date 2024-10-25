@@ -7,7 +7,7 @@ import base64
 from django.db import connection
 from django.http import JsonResponse
 from .exceptions import BusinessError
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -67,6 +67,13 @@ def criar_meu_site(request):
             "body.relacionamento.nome_site: Input should be a valid string (string_type)"
         )
 
+    if not inicio_relacionamento:
+        #            safe=False,
+        return JsonResponse(
+            {"message": "Você precisa passar a data de início do seu relacionamento"},
+            status=400,
+        )
+
     nome_site = str(nome_site)
     if len(nome_site) <= 2:
         raise ValueError(
@@ -94,7 +101,13 @@ def criar_meu_site(request):
     # return render(request, "site_do_casal", context)
     url = reverse("vai_pro_site", kwargs={"nome_site": site_json.get("nome_site")})
 
-    return redirect(url)
+    return JsonResponse(
+        {
+            "message": "Hurru. site criado",
+            "url": url,
+        },
+        status=200,
+    )
 
 
 @csrf_exempt
