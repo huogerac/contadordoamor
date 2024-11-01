@@ -2,28 +2,56 @@
 
 {% block content %}
 
-<h1>Bem-vindo</h1>
-<h2>Tempo de casados</h2>
-<p id="message"></p>
-<form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
-    {% csrf_token %}
-    <div class="previews"></div>
-    <div class="  block overflow-visible">
-        <div>
-            <p style="font-size: 1.1em;">OI</p>
-            <div class="" style="margin-bottom: 12px;">
-                <input type="text" name="nome_site" value="Voce e Eu" required>
-                <label></label>
-                <input type="date" name="inicio_relacionamento" id="inicio_relacionamento">
+<div id="app">
+    <p>${ message }$</p>
+
+    <h1>Bem-vindo</h1>
+    <h2>Tempo de casados</h2>
+    <p id="message"></p>
+    <form id="upload-form" class="dropzone" action="{% url 'criar.meu.site' %}" method="POST">
+        {% csrf_token %}
+        <div class="previews"></div>
+        <div class="  block overflow-visible">
+            <div>
+                <p style="font-size: 1.1em;">OI</p>
+                <div class="" style="margin-bottom: 12px;">
+                    <input type="text" name="nome_site" value="Voce e Eu" required>
+                    <label></label>
+                    <input type="date" name="inicio_relacionamento" id="inicio_relacionamento">
+                </div>
             </div>
+            <button type="submit">Gere meu site</button>
         </div>
-        <button type="submit">Gere meu site</button>
-    </div>
-</form>
+    </form>
+
+</div>
 {% endblock content %}
 
 
 {% block js %}
+
+<script>
+    const { createApp, ref } = Vue
+
+    var app = Vue.createApp({
+        delimiters: ["${", "}$"],
+        compilerOptions: {
+            delimiters: ["${", "}$"]
+        },
+        data() {
+            return {
+                message: "Vuejs está funcionando",
+            }
+        },
+        methods: {
+            incrementar() {
+                this.count += 1
+            }
+        }
+    }).mount('#app');
+
+
+</script>
 
 <script>
 
