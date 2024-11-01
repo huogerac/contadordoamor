@@ -1,3 +1,5 @@
+import os
+import base64
 import logging
 from datetime import datetime
 from django.utils.text import slugify
@@ -17,6 +19,11 @@ def criar_meusite(nome_site: str, imagem: str, data_inicio_relacionamento: str) 
     nome_site = slugify(nome_site.strip())
     if not nome_site:
         raise BusinessError("Nome do site inválido")
+
+    sites_existente = Relacionamento.objects.filter(nome_site=nome_site)
+    if sites_existente:
+        hash_unico = base64.urlsafe_b64encode(os.urandom(3)).decode()
+        nome_site = slugify(f"{hash_unico}-{nome_site}")
 
     if data_inicio_relacionamento:
         data_inicio_relacionamento = datetime.strptime(

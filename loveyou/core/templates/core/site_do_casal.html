@@ -96,10 +96,16 @@
   }
 
   .item {
-    width: 30%;
+    width: 52%;
     display: inline-block;
     margin-top: 2rem;
     filter: grayscale(100%);
+  }
+
+  @media (max-width: 576px) {
+    .item {
+      width: 88%;
+    }
   }
 
   .item .polaroid:before {
@@ -195,9 +201,6 @@
 {% block content %}
 
 <div class="text-center mb-4">
-  <h1>Oi este é o site</h1>
-  <p>Data: {{ site.data_inicio_relacionamento|date:"Y-m-d" }} </p>
-
   <div class="wrapper">
     <div class="item">
       <div class="polaroid">
@@ -268,7 +271,7 @@
 
     // create counter
     //Tick.count.up('{{ site.data_inicio_relacionamento|date:"Y-m-d" }}T00:00:00', { format: ['y', 'M', 'd', 'h', 'm', 's'] }).onupdate = function (value) {
-    Tick.count.up('{{ site.data_inicio_relacionamento|date:"Y-m-d" }}T00:00:00', { format: ['y', 'M', 'd'] }).onupdate = function (value) {
+    Tick.count.up('{{ site.data_inicio_relacionamento|date:"Y-m-d" }}T00:00:00', { format: ['y', 'M', 'd', 'h', 'm', 's'] }).onupdate = function (value) {
       tick.value = value;
     };
 

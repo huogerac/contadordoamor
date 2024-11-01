@@ -63,9 +63,7 @@ def criar_meu_site(request):
         raise ValueError("body.relacionamento.nome_site: Field required (missing)")
 
     if type(nome_site) not in [str]:
-        raise ValueError(
-            "body.relacionamento.nome_site: Input should be a valid string (string_type)"
-        )
+        raise ValueError("Preencha o nome do casal para seu site ter um endereço.")
 
     if not inicio_relacionamento:
         #            safe=False,
@@ -76,9 +74,7 @@ def criar_meu_site(request):
 
     nome_site = str(nome_site)
     if len(nome_site) <= 2:
-        raise ValueError(
-            "body.relacionamento.nome_site: Value error, It must be at least 3 characteres long. (value_error)"
-        )
+        raise ValueError("O nome do site precisa ter pelo menos dois caracteres.")
 
     # body = json.loads(request.body)
 
